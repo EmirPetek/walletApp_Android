@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Wallet_App_Android</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="walletApp">Wallet App</string>
+    <string name="login_account">Login to your account.</string>
+    <string name="register_account">Register fastly and join us.</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create_account">Create Account</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="back_to_login">Back To Login Page</string>
+    <string name="fill_all_place">Fill all place.</string>
+
+    <string name="login_successful">Login Successful</string>
+    <string name="login_error">There is an error in login.</string>
+    <string name="register_successful">Register successfully completed.</string>
+    <string name="register_error">This email is already registered. Please login with this email.</string>
+    <string name="register_error2">There is an error in register. Please try again later.</string>
+
+    
+</resources>
