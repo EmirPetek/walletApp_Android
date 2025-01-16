@@ -1,6 +1,8 @@
 package com.emirpetek.wallet_app_android.retrofit
 
+import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
+import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.data.request.LoginRequest
 import com.emirpetek.wallet_app_android.data.request.RegisterRequest
 import retrofit2.Response
@@ -19,6 +21,9 @@ interface ApiService {
 
     @GET("user/{userID}")
     suspend fun getUserData(@Path("userID") userID:Long): Response<UserDTO>
+
+    @POST("card/getCard")
+    suspend fun getUserCards(@Body getCardRequest: GetCardRequest): Response<List<CardDTO>>
 
 
 }

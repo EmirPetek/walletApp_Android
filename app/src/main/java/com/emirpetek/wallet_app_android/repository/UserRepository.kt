@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
 import com.emirpetek.wallet_app_android.retrofit.ApiService
+import com.google.gson.Gson
 
 class UserRepository(private val apiService: ApiService) {
 
@@ -17,6 +18,14 @@ class UserRepository(private val apiService: ApiService) {
 
     fun getUserIdFromSP(mContext: Context): Long{
         return getSharedPreferences(mContext).getLong("userID",0L)
+    }
+
+    fun saveUserToSP(userDTO: UserDTO,mContext: Context){
+        return getSharedPreferences(mContext).edit().putString("userDTO",Gson().toJson(userDTO)).apply()
+    }
+
+    fun getUserDTO(mContext: Context): UserDTO{
+        return Gson().fromJson(getSharedPreferences(mContext).getString("userDTO",""),UserDTO::class.java)
     }
 
     suspend fun getUserData(userID: Long): Result<UserDTO> {

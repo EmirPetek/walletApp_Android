@@ -23,6 +23,13 @@
     <string name="register_successful">Register successfully completed.</string>
     <string name="register_error">This email is already registered. Please login with this email.</string>
     <string name="register_error2">There is an error in register. Please try again later.</string>
+    
+    <string name="card_holder_title">Card Holder</string>
+    <string name="expires_title">Expires</string>
+    <string name="cvv_title">CVV</string>
+    <string name="balance_title">Balance: </string>
 
+    <string name="my_cards">My Cards</string>
+    <string name="add_card">Add Card</string>
     
 </resources>
