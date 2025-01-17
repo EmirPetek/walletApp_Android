@@ -1,0 +1,15 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Arka plan rengi (şeffaf renk) -->
+    <solid android:color="#807f9fc3" /> <!-- %50 şeffaflık -->
+
+    <!-- Köşeleri yuvarlatmak için -->
+    <corners android:radius="8dp" />
+
+    <!-- İsteğe bağlı: Kenar çizgisi (border) -->
+    <stroke
+        android:width="2dp"
+        android:color="#7f9fc3" /> <!-- Kenar çizgisi rengi -->
+
+</shape>

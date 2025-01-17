@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
+
 android {
     namespace = "com.emirpetek.wallet_app_android"
     compileSdk = 35
@@ -51,6 +52,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -60,6 +62,7 @@ dependencies {
     implementation (libs.lifecycle.livedata.ktx.v261)
     implementation (libs.androidx.lifecycle.viewmodel.ktx.v261)
     implementation(libs.kotlinx.coroutines.android)
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
+
 
 }

@@ -63,7 +63,7 @@
                         android:layout_width="80dp"
                         android:layout_height="40dp"
                         android:layout_gravity="end"
-                        app:srcCompat="@drawable/visa_logo" />
+                        app:srcCompat="@drawable/union_pay_logo" />
                 </LinearLayout>
 
                 <LinearLayout

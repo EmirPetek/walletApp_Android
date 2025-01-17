@@ -8,4 +8,8 @@
     <color name="negative_red">#E20000</color>
     <color name="bg_white_2">#efeef3</color>
     <color name="bg_text_white_2">#c1d6ea</color>
+    <color name="selected_card">#1b1d4c</color>
+    <color name="transparent_1">#B37f9fc3</color>
+    <color name="dark_green">#388e3c</color>
+    <color name="dark_orange">#de690c</color>
 </resources>

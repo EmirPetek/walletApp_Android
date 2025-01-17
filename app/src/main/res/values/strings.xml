@@ -31,5 +31,31 @@
 
     <string name="my_cards">My Cards</string>
     <string name="add_card">Add Card</string>
-    
+
+    <string name="card_type_visa">Visa</string>
+    <string name="card_type_mastercard">MasterCard</string>
+    <string name="card_type_maestro">Maestro</string>
+    <string name="card_type_american_express">American Express</string>
+    <string name="card_type_unionpay">UnionPay</string>
+    <string name="card_type_diners_club">Diners Club</string>
+
+    <string name="currency_try">TRY</string>
+    <string name="currency_eur">EUR</string>
+    <string name="currency_usd">USD</string>
+
+    <string name="currency_try_tl">Turkish Lira</string>
+    <string name="currency_eur_euro">Euro</string>
+    <string name="currency_usd_dollar">US Dollar</string>
+
+    <string name="balance">Balance</string>
+    <string name="card_holder">Card Holder</string>
+    <string name="card_type">Card Type</string>
+    <string name="card_currency">Card Currency</string>
+    <string name="create_card">Create Card</string>
+    <string name="balance_not_zero_or_lower">Balance can not be zero or lower than zero.</string>
+    <string name="card_created_successfully">The card created successfully!</string>
+    <string name="card_created_failure">There is an error in creating card!</string>
+
+
+
 </resources>

@@ -2,6 +2,7 @@ package com.emirpetek.wallet_app_android.retrofit
 
 import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
+import com.emirpetek.wallet_app_android.data.request.CreateCardRequest
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.data.request.LoginRequest
 import com.emirpetek.wallet_app_android.data.request.RegisterRequest
@@ -24,6 +25,9 @@ interface ApiService {
 
     @POST("card/getCard")
     suspend fun getUserCards(@Body getCardRequest: GetCardRequest): Response<List<CardDTO>>
+
+    @POST("card/createCard")
+    suspend fun createCard(@Body createCardRequest: CreateCardRequest): Response<Boolean>
 
 
 }

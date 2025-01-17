@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emirpetek.wallet_app_android.R
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
@@ -29,6 +30,10 @@ import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
         binding = FragmentHomeBinding.inflate(inflater,container,false)
 
         val userID = viewModel.getUserID(requireContext())
+
+        binding.layoutAddCard.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_addCardFragment) }
+
+
         viewModel.getUserCards(GetCardRequest(userID))
         viewModel.cardsResult.observe(viewLifecycleOwner, Observer { result ->
 

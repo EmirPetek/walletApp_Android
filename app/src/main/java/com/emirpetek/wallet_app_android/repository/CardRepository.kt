@@ -1,6 +1,8 @@
 package com.emirpetek.wallet_app_android.repository
 
+import android.util.Log
 import com.emirpetek.wallet_app_android.data.dto.CardDTO
+import com.emirpetek.wallet_app_android.data.request.CreateCardRequest
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.retrofit.ApiService
 
@@ -20,5 +22,29 @@ class CardRepository(private val apiService: ApiService) {
             Result.failure(e)
         }
     }
+
+    suspend fun createCard(createCardRequest: CreateCardRequest): Result<Boolean>{
+
+        return try {
+            val response = apiService.createCard(createCardRequest)
+            if (response.isSuccessful) {
+                val result = response.body() // Backend'den gelen true/false değeri
+                Log.e("repo body:", result.toString())
+                if (result != null) {
+                    Result.success(result)
+                } else {
+                    Result.failure(Exception("Response body is null"))
+                }
+            }else{
+                Result.failure(Exception(response.message()))
+            }
+        }catch (e: Exception){
+            Result.failure(e)
+        }
+
+    }
+
+
+
 
 }
