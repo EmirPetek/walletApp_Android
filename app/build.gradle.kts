@@ -60,4 +60,6 @@ dependencies {
     implementation (libs.lifecycle.livedata.ktx.v261)
     implementation (libs.androidx.lifecycle.viewmodel.ktx.v261)
     implementation(libs.kotlinx.coroutines.android)
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
 }

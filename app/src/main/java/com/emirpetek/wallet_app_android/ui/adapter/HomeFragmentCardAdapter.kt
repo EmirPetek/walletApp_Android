@@ -1,7 +1,6 @@
 package com.emirpetek.wallet_app_android.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.emirpetek.wallet_app_android.R
 import com.emirpetek.wallet_app_android.data.dto.CardDTO
+import com.emirpetek.wallet_app_android.data.model.enum.CardType
 
 class HomeFragmentCardAdapter(
     val mContext:Context,
@@ -40,12 +41,50 @@ class HomeFragmentCardAdapter(
         val cardInfo = cardList[position]
 
         val cardNumberFirst4 = cardInfo.cardNumber.substring(0,4)
-        //val cardNumberSecond4 = cardInfo.cardNumber.substring(4,7)
-        //val cardNumberThird4 = cardInfo.cardNumber.substring(8,11)
         val cardNumberFourth4 = cardInfo.cardNumber.substring(12,16)
 
         val cardNumber = "$cardNumberFirst4 **** **** $cardNumberFourth4"
         val balanceAndCurrency = "${cardInfo.balance} ${cardInfo.currency}"
+
+        var cardTypeLogoImg: Int = 0
+        var cardTypeGradient: Int = 0
+        when(cardInfo.cardType){
+            CardType.VISA -> {
+                cardTypeLogoImg = R.drawable.visa_logo
+                cardTypeGradient = R.drawable.visa_gradient
+            }
+            CardType.MASTERCARD -> {
+                cardTypeLogoImg = R.drawable.mastercard_logo
+                cardTypeGradient = R.drawable.maestro_card_gradient
+            }
+            CardType.MAESTRO -> {
+                cardTypeLogoImg = R.drawable.maestro_logo
+                cardTypeGradient = R.drawable.maestro_card_gradient
+            }
+            CardType.AMERICAN_EXPRESS -> {
+                cardTypeLogoImg = R.drawable.american_express_logo
+                cardTypeGradient = R.drawable.american_express_gradient
+            }
+            CardType.UNIONPAY -> {
+                cardTypeLogoImg = R.drawable.union_pay_logo
+                cardTypeGradient = R.drawable.diners_club_gradient
+            }
+            CardType.DINERS_CLUB -> {
+                cardTypeLogoImg = R.drawable.diners_club_logo
+                cardTypeGradient = R.drawable.diners_club_gradient
+            }
+            else -> {
+                cardTypeLogoImg = R.drawable.visa_logo
+                cardTypeGradient = R.drawable.visa_gradient
+            }
+        }
+
+
+
+        Glide.with(mContext).load(cardTypeLogoImg).into(holder.imageViewCardviewCardType)
+        holder.cardviewCardComponent.setBackgroundResource(cardTypeGradient)
+
+
 
         holder.textViewCardviewCardHolder.setText(cardInfo.cardHolder)
         holder.textViewCardviewCardNumber.setText(cardNumber)

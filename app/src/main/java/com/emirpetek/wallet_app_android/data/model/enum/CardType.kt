@@ -5,8 +5,6 @@ enum class CardType {
     MASTERCARD,
     MAESTRO,
     AMERICAN_EXPRESS,
-    DISCOVER,
     UNIONPAY,
-    JCB,
     DINERS_CLUB,
 }

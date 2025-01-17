@@ -33,6 +33,12 @@ import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
         viewModel.cardsResult.observe(viewLifecycleOwner, Observer { result ->
 
             result.onSuccess { list ->
+
+                var sizeText = ""
+                if (list.size <=1) sizeText = "Card"
+                else sizeText = "Cards"
+                binding.textViewHomeMyCardsTitle.setText(getString(R.string.my_cards) + " (${list.size} $sizeText)")
+
                 binding.recyclerviewHomeCards.setHasFixedSize(true)
                 binding.recyclerviewHomeCards.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
                 adapter = HomeFragmentCardAdapter(requireContext(),list)
