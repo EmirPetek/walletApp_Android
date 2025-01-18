@@ -21,6 +21,7 @@ import com.emirpetek.wallet_app_android.databinding.FragmentAddCardBinding
 import com.emirpetek.wallet_app_android.ui.adapter.AddCardFragmentCardCurrencyAdapter
 import com.emirpetek.wallet_app_android.ui.adapter.AddCardFragmentCardTypeAdapter
 import com.emirpetek.wallet_app_android.ui.viewmodel.addCard.AddCardViewModel
+import com.emirpetek.wallet_app_android.util.ManageBottomBarVisibility
 import kotlinx.coroutines.runBlocking
 import java.math.BigDecimal
 
@@ -46,6 +47,8 @@ class AddCardFragment : Fragment() {
         binding.imageViewAddCardBackButton.setOnClickListener { findNavController().popBackStack() }
 
         val userID = viewModel.getUserID(requireContext())
+
+        ManageBottomBarVisibility(requireActivity()).hideBottomNav()
 
         val cardTypeList: List<CardType> = listOf(CardType.VISA,CardType.MASTERCARD,CardType.MAESTRO,CardType.UNIONPAY,CardType.DINERS_CLUB,CardType.AMERICAN_EXPRESS)
         binding.recyclerviewAddCardFragmentCardType.setHasFixedSize(true)

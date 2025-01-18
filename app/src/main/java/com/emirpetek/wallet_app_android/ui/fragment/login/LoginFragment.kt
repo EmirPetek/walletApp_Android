@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.emirpetek.wallet_app_android.R
 import com.emirpetek.wallet_app_android.databinding.FragmentLoginBinding
 import com.emirpetek.wallet_app_android.ui.viewmodel.login.LoginViewModel
+import com.emirpetek.wallet_app_android.util.ManageBottomBarVisibility
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +31,7 @@ class LoginFragment : Fragment() {
     ): View {
         binding = FragmentLoginBinding.inflate(inflater,container,false)
 
+        ManageBottomBarVisibility(requireActivity()).hideBottomNav()
 
         binding.textViewLoginCreateAccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)

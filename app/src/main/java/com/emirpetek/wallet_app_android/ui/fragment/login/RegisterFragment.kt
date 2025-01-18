@@ -21,6 +21,7 @@ import com.emirpetek.wallet_app_android.data.model.User
 import com.emirpetek.wallet_app_android.data.request.RegisterRequest
 import com.emirpetek.wallet_app_android.databinding.FragmentRegisterBinding
 import com.emirpetek.wallet_app_android.ui.viewmodel.login.RegisterViewModel
+import com.emirpetek.wallet_app_android.util.ManageBottomBarVisibility
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
@@ -37,6 +38,8 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater,container,false)
+
+        ManageBottomBarVisibility(requireActivity()).hideBottomNav()
 
         mockData()
         binding.editTextRegisterBirthdate.setOnClickListener { showDatePickerDialog() }

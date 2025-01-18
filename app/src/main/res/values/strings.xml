@@ -57,6 +57,14 @@
     <string name="card_created_failure">There is an error in creating card!</string>
     <string name="there_is_no_card">There is no card here. \n You can create your card from Add Card button.</string>
 
+    <string name="transactions_title">Transactions</string>
+    <string name="quick_shortcuts">Quick Shortcuts</string>
+    <string name="money_transfer_qs">Money \n Transfer</string>
+    <string name="create_transaction_qs">Create \n Transaction</string>
+    <string name="load_balance_qs">Load \n Balance</string>
+    <string name="pay_bills_qs">Pay \n Bills</string>
+
+
 
 
 </resources>

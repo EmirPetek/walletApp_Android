@@ -14,6 +14,7 @@ import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.databinding.FragmentHomeBinding
 import com.emirpetek.wallet_app_android.ui.adapter.HomeFragmentCardAdapter
 import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
+import com.emirpetek.wallet_app_android.util.ManageBottomBarVisibility
 
     class HomeFragment : Fragment() {
 
@@ -33,6 +34,7 @@ import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
         binding.textViewFragmentHomeNoCardAlert.visibility = View.GONE
         binding.layoutAddCard.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_addCardFragment) }
 
+        ManageBottomBarVisibility(requireActivity()).showBottomNav()
 
         viewModel.getUserCards(GetCardRequest(userID))
         viewModel.cardsResult.observe(viewLifecycleOwner, Observer { result ->
