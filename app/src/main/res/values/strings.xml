@@ -55,6 +55,7 @@
     <string name="balance_not_zero_or_lower">Balance can not be zero or lower than zero.</string>
     <string name="card_created_successfully">The card created successfully!</string>
     <string name="card_created_failure">There is an error in creating card!</string>
+    <string name="there_is_no_card">There is no card here. \n You can create your card from Add Card button.</string>
 
 
 

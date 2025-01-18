@@ -30,7 +30,7 @@ import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
         binding = FragmentHomeBinding.inflate(inflater,container,false)
 
         val userID = viewModel.getUserID(requireContext())
-
+        binding.textViewFragmentHomeNoCardAlert.visibility = View.GONE
         binding.layoutAddCard.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_addCardFragment) }
 
 
@@ -39,6 +39,8 @@ import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
 
             result.onSuccess { list ->
 
+                if (list.size == 0) binding.textViewFragmentHomeNoCardAlert.visibility = View.VISIBLE
+                else binding.textViewFragmentHomeNoCardAlert.visibility = View.GONE
                 var sizeText = ""
                 if (list.size <=1) sizeText = "Card"
                 else sizeText = "Cards"
