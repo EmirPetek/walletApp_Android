@@ -51,4 +51,13 @@
         android:name="com.emirpetek.wallet_app_android.ui.fragment.addCard.AddCardFragment"
         android:label="fragment_add_card"
         tools:layout="@layout/fragment_add_card" />
+    <fragment
+        android:id="@+id/moneyTransferFragment"
+        android:name="com.emirpetek.wallet_app_android.ui.fragment.moneyTransfer.MoneyTransferFragment"
+        android:label="fragment_money_transfer"
+        tools:layout="@layout/fragment_money_transfer" >
+        <action
+            android:id="@+id/action_moneyTransferFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

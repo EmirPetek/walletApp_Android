@@ -7,6 +7,10 @@
         android:icon="@drawable/baseline_home_24"
         android:title="@string/home" />
     <item
+        android:id="@+id/moneyTransferFragment"
+        android:icon="@drawable/money_transfer"
+        android:title="@string/money_transfer" />
+    <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/baseline_person_24"
         android:title="@string/profile" />

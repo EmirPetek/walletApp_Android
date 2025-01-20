@@ -27,6 +27,7 @@ class HomeFragmentCardAdapter(
         val textViewCardviewCardHolder: TextView = view.findViewById(R.id.textViewCardviewCardHolder)
         val textViewCardviewExpireDate: TextView = view.findViewById(R.id.textViewCardviewExpireDate)
         val textViewCardviewCvvNumber: TextView = view.findViewById(R.id.textViewCardviewCvvNumber)
+        val textViewCardIbanNumber: TextView = view.findViewById(R.id.textViewCardIbanNumber)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
@@ -92,6 +93,7 @@ class HomeFragmentCardAdapter(
         holder.textViewCardviewExpireDate.setText(cardInfo.expireDate)
         holder.textViewCardviewCvvNumber.setText(cardInfo.cvv.toString())
         holder.textViewCardviewBalance.setText(balanceAndCurrency)
+        holder.textViewCardIbanNumber.setText(mContext.getString(R.string.iban) + ": " + cardInfo.accountID)
 
 
 

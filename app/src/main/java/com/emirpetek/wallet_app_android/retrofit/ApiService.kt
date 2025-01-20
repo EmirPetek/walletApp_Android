@@ -2,10 +2,12 @@ package com.emirpetek.wallet_app_android.retrofit
 
 import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
+import com.emirpetek.wallet_app_android.data.model.enum.MoneyTransferReturnStatements
 import com.emirpetek.wallet_app_android.data.request.CreateCardRequest
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.data.request.LoginRequest
 import com.emirpetek.wallet_app_android.data.request.RegisterRequest
+import com.emirpetek.wallet_app_android.data.request.MoneyTransferRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,5 +31,7 @@ interface ApiService {
     @POST("card/createCard")
     suspend fun createCard(@Body createCardRequest: CreateCardRequest): Response<Boolean>
 
+    @POST("transaction/moneyTransfer")
+    suspend fun transferMoney(@Body moneyTransferRequest: MoneyTransferRequest): Response<MoneyTransferReturnStatements>
 
 }
