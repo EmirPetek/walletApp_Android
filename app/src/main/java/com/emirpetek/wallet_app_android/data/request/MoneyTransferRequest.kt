@@ -9,5 +9,6 @@ data class MoneyTransferRequest(
     val receiverIbanNumber: String,
     val amount: BigDecimal,
     val currencyType: CurrencyType,
-    val description: String
+    val description: String? = null,
+    val transferReceiverUserId: Long? = null
 )

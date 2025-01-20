@@ -2,9 +2,11 @@ package com.emirpetek.wallet_app_android.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
 import com.emirpetek.wallet_app_android.retrofit.ApiService
 import com.google.gson.Gson
+import org.json.JSONObject
 
 class UserRepository(private val apiService: ApiService) {
 
@@ -42,6 +44,22 @@ class UserRepository(private val apiService: ApiService) {
             Result.failure(e)
         }
     }
+
+    suspend fun getUserFullName(userID: Long): Result<String> {
+        return try {
+            val response = apiService.getFullNameFromUserID(userID)
+            if (response.isSuccessful){
+                response.body()?.let {
+                    Result.success(it)
+                } ?: Result.failure(Exception("Failure in getting fullname process."))
+            }else Result.failure(Exception("exception mesajı: " + response.message()))
+        }catch (e: Exception){
+            return Result.failure(e)
+        }
+    }
+
+
+
 
 
 

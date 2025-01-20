@@ -57,6 +57,7 @@
     <string name="card_created_failure">There is an error in creating card!</string>
     <string name="there_is_no_card">There is no card here. \n You can create your card from Add Card button.</string>
     <string name="there_is_no_card_money_transfer">You do not have any card. \n You should create a card to transfer money.</string>
+    <string name="there_is_no_transaction">There is no transaction.</string>
 
     <string name="transactions_title">Transactions</string>
     <string name="quick_shortcuts">Quick Shortcuts</string>
@@ -65,6 +66,7 @@
     <string name="pay_bills_qs">Pay \n Bills</string>
     <string name="random_payment_qs">Random \n Payment</string>
     <string name="money_transfer">Money Transfer</string>
+    <string name="view_all">View All</string>
 
     <string name="transaction_type_payment">Payment</string> <!-- Ödeme -->
     <string name="transaction_type_transfer">Money Transfer</string> <!-- Para Gönderme -->

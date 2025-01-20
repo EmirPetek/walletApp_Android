@@ -10,6 +10,7 @@ data class CreateTransactionRequest(
     val amount: BigDecimal,
     val currency: CurrencyType,
     val transactionDate: Long,
-    val description: String? = null
+    val description: String? = null,
+    val transactionCardId: Long
 ) {
 }

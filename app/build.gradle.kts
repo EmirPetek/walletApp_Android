@@ -63,6 +63,7 @@ dependencies {
     implementation (libs.androidx.lifecycle.viewmodel.ktx.v261)
     implementation(libs.kotlinx.coroutines.android)
     implementation (libs.glide)
+    implementation (libs.converter.scalars)
 
 
 }

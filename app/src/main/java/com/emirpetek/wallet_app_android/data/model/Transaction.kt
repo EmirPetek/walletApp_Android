@@ -13,5 +13,6 @@ data class Transaction(
     val amount: BigDecimal, // İşlem tutarı
     val currency: CurrencyType, // Para birimi (enum)
     val transactionDate: Long, // İşlem tarihi (timestamp)
-    val description: String? = null // İşlem açıklaması (opsiyonel)
+    val description: String? = null, // İşlem açıklaması (opsiyonel)
+    val transferReceiverUserId: Long? = null
 )

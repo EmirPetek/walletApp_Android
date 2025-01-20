@@ -28,6 +28,7 @@
             android:layout_margin="8dp"
             android:fontFamily="@font/roboto_flex"
             android:text="@string/transfer_successful"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
