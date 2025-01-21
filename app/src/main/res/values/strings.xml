@@ -28,6 +28,7 @@
     <string name="expires_title">Expires</string>
     <string name="cvv_title">CVV</string>
     <string name="balance_title">Balance: </string>
+    <string name="amount_title">Amount: </string>
 
     <string name="my_cards">My Cards</string>
     <string name="add_card">Add Card</string>
@@ -84,6 +85,7 @@
     <string name="iban">IBAN</string>
 
     <string name="select_card_alert">Please select card to transfer money.</string>
+    <string name="select_card_label">Select Card: </string>
     <string name="amount_cannot_be_lower_balance">Amount value can not be lower than balance value or zero.</string>
     <string name="transfer_successful">The money transfer successfully completed.</string>
     <string name="transfer_failure_amount_lower_than_zero">The transfer amount can not be lower than zero.</string>
@@ -91,6 +93,10 @@
     <string name="transfer_failure_different_currency">Receiver card currency is different from your card currency.</string>
     <string name="transfer_failure_failure_server">Failure server. Please try again later.</string>
     <string name="transfer_failure_onfailure_state">Fail in transfer process. Please try again later.</string>
+
+    <string name="load_balance">Load Balance</string>
+    <string name="load_balance_process_success">The balance is loading successfully.</string>
+    <string name="load_balance_process_failure">The balance could not load. Try again.</string>
 
 
 

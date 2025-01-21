@@ -55,25 +55,10 @@ class HomeFragmentTransactionSumAdapter(
             holder.textViewCardTransactionSumAmount.setTextColor(Color.GREEN)
         }
 
-        Glide.with(mContext)
-            .load(
-                when(transaction.transactionType){
-                    TransactionType.TRANSFER -> R.drawable.money_transfer
-                    TransactionType.BILL_PAYMENT -> R.drawable.pay_bill
-                    TransactionType.DEPOSIT -> R.drawable.load_balance
-                    TransactionType.WITHDRAWAL -> R.drawable.withdrawal
-                    TransactionType.PAYMENT -> R.drawable.random_payment
-                    else -> R.drawable.money_transfer
-                }
-            )
-            .into(holder.imageViewCardTransactionTypeSum)
+        when(transaction.transactionType){
+            TransactionType.TRANSFER -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeSum,R.drawable.money_transfer)
 
-
-
-
-
-
-        if (transaction.transactionType == TransactionType.TRANSFER) {
                 viewModel.getUserFullname(transaction.transferReceiverUserId!!)
                 viewModel.fullname.observe(viewLifecycleOwner) { result ->
                     result.onSuccess { fullname ->
@@ -81,14 +66,55 @@ class HomeFragmentTransactionSumAdapter(
                     result.onFailure { exception ->
                         Log.e("onFailure: ", "Hata: $exception") }
                 }
+            }
+
+            TransactionType.DEPOSIT -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeSum,R.drawable.load_balance)
+                holder.textViewCardTransactionSumName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
+            }
+            TransactionType.WITHDRAWAL -> R.drawable.withdrawal
+            TransactionType.PAYMENT -> R.drawable.random_payment
+            else -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeSum,R.drawable.money_transfer)
+                holder.textViewCardTransactionSumName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
+            }
+
         }
+
+//        Glide.with(mContext)
+//            .load(
+//                when(transaction.transactionType){
+//                    TransactionType.TRANSFER -> R.drawable.money_transfer
+//                    TransactionType.BILL_PAYMENT -> R.drawable.pay_bill
+//                    TransactionType.DEPOSIT -> R.drawable.load_balance
+//                    TransactionType.WITHDRAWAL -> R.drawable.withdrawal
+//                    TransactionType.PAYMENT -> R.drawable.random_payment
+//                    else -> R.drawable.money_transfer
+//                }
+//            )
+//            .into(holder.imageViewCardTransactionTypeSum)
+
+
+
+
+
+//
+//        if (transaction.transactionType == TransactionType.TRANSFER) {
+//                viewModel.getUserFullname(transaction.transferReceiverUserId!!)
+//                viewModel.fullname.observe(viewLifecycleOwner) { result ->
+//                    result.onSuccess { fullname ->
+//                        holder.textViewCardTransactionSumName.text = fullname }
+//                    result.onFailure { exception ->
+//                        Log.e("onFailure: ", "Hata: $exception") }
+//                }
+//        }
 
 
         if (position == itemCount - 1 || transactionList.isEmpty()) progressBarHomeFragmentTransactions.visibility = View.GONE
+    }
 
-
-
-
+    fun loadGlide(mContext: Context, imageView: ImageView, file: Int){
+        Glide.with(mContext).load(file).into(imageView)
     }
 
 

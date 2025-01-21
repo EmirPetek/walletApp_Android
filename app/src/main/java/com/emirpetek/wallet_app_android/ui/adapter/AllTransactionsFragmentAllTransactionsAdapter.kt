@@ -49,15 +49,26 @@ class AllTransactionsFragmentAllTransactionsAdapter(
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
         val transaction = list[position]
 
-        if (transaction.transactionType == TransactionType.TRANSFER) {
-            viewModel.getUserFullname(transaction.transferReceiverUserId!!)
-            viewModel.fullname.observe(viewLifecycleOwner) { result ->
-                result.onSuccess { fullname ->
-                    holder.textViewCardTransactionAllName.text = fullname }
-                result.onFailure { exception ->
-                    Log.e("onFailure: ", "Hata: $exception") }
+
+        when(transaction.transactionType){
+            TransactionType.TRANSFER -> {
+                viewModel.getUserFullname(transaction.transferReceiverUserId!!)
+                viewModel.fullname.observe(viewLifecycleOwner) { result ->
+                    result.onSuccess { fullname ->
+                        holder.textViewCardTransactionAllName.text = fullname }
+                    result.onFailure { exception ->
+                        Log.e("onFailure: ", "Hata: $exception") }
+                }
             }
+
+            TransactionType.DEPOSIT -> {
+                holder.textViewCardTransactionAllName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
+            }
+            else -> holder.textViewCardTransactionAllName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
+
         }
+
+
 
 
         holder.textViewCardTransactionAllType.text = mContext.getString(transaction.transactionType.stringResId)

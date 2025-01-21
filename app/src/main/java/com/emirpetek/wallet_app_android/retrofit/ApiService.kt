@@ -6,6 +6,7 @@ import com.emirpetek.wallet_app_android.data.model.Transaction
 import com.emirpetek.wallet_app_android.data.model.enum.MoneyTransferReturnStatements
 import com.emirpetek.wallet_app_android.data.request.CreateCardRequest
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
+import com.emirpetek.wallet_app_android.data.request.LoadBalanceRequest
 import com.emirpetek.wallet_app_android.data.request.LoginRequest
 import com.emirpetek.wallet_app_android.data.request.RegisterRequest
 import com.emirpetek.wallet_app_android.data.request.MoneyTransferRequest
@@ -41,6 +42,8 @@ interface ApiService {
     @GET("transaction/getTransactions/{userID}")
     suspend fun getTransactions(@Path("userID") userID: Long) : Response<List<Transaction>>
 
+    @POST("card/loadBalance")
+    suspend fun loadBalance(@Body loadBalanceRequest: LoadBalanceRequest): Response<Boolean>
 
 
 }

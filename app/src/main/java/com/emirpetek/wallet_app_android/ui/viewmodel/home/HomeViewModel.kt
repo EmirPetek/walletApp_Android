@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.model.Transaction
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
+import com.emirpetek.wallet_app_android.data.request.LoadBalanceRequest
 import com.emirpetek.wallet_app_android.repository.CardRepository
 import com.emirpetek.wallet_app_android.repository.TransactionRepository
 import com.emirpetek.wallet_app_android.repository.UserRepository
@@ -19,6 +20,7 @@ class HomeViewModel : ViewModel() {
     private val cardRepository = CardRepository(RetrofitClient.instance)
     private val transactionRepository = TransactionRepository(RetrofitClient.instance)
     val cardsResult = MutableLiveData<Result<List<CardDTO>>>()
+    val loadBalanceResult = MutableLiveData<Result<Boolean>>()
     val transactions = MutableLiveData<Result<List<Transaction>>>()
     val fullname = MutableLiveData<Result<String>>()
 
@@ -46,6 +48,14 @@ class HomeViewModel : ViewModel() {
             transactions.value = result
         }
 
+    }
+
+
+    fun loadBalance(loadBalanceRequest: LoadBalanceRequest){
+        viewModelScope.launch {
+            val result = cardRepository.loadBalance(loadBalanceRequest)
+            loadBalanceResult.value = result
+        }
     }
 
 
