@@ -31,6 +31,7 @@
 
     <string name="my_cards">My Cards</string>
     <string name="add_card">Add Card</string>
+    <string name="card">Card</string>
 
     <string name="card_type_visa">Visa</string>
     <string name="card_type_mastercard">MasterCard</string>
@@ -60,6 +61,7 @@
     <string name="there_is_no_transaction">There is no transaction.</string>
 
     <string name="transactions_title">Transactions</string>
+    <string name="all_transactions_title"> All Transactions</string>
     <string name="quick_shortcuts">Quick Shortcuts</string>
     <string name="withdraw_money_qs">Withdraw \n Money</string>
     <string name="load_balance_qs">Load \n Balance</string>
@@ -77,6 +79,7 @@
     <string name="iban_number">IBAN Number</string>
     <string name="amount">Amount</string>
     <string name="description">Description</string>
+    <string name="description_label">Description: </string>
     <string name="send_money">Send Money</string>
     <string name="iban">IBAN</string>
 

@@ -2,7 +2,6 @@
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,9 +37,11 @@ import com.emirpetek.wallet_app_android.util.ManageBottomBarVisibility
         binding.textViewFragmentHomeNoCardAlert.visibility = View.GONE
         binding.textViewHomeFragmentNoTransactionAlert.visibility = View.GONE
         binding.layoutAddCard.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_addCardFragment) }
+        binding.textViewHomeFragmentViewAllTransactions.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_allTransactionsFragment) }
 
         ManageBottomBarVisibility(requireActivity()).showBottomNav()
 
+        binding.progressBarHomeFragmentCards.visibility = View.VISIBLE
         viewModel.getUserCards(GetCardRequest(userID))
         viewModel.cardsResult.observe(viewLifecycleOwner, Observer { result ->
 
@@ -55,16 +56,20 @@ import com.emirpetek.wallet_app_android.util.ManageBottomBarVisibility
 
                 binding.recyclerviewHomeCards.setHasFixedSize(true)
                 binding.recyclerviewHomeCards.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-                adapter = HomeFragmentCardAdapter(requireContext(),list)
+                adapter = HomeFragmentCardAdapter(requireContext(),list,binding.progressBarHomeFragmentCards)
                 binding.recyclerviewHomeCards.adapter = adapter
             }
         })
 
+        binding.progressBarHomeFragmentTransactions.visibility = View.VISIBLE
         viewModel.getTransactions(userID)
         viewModel.transactions.observe(viewLifecycleOwner, Observer { result ->
             result.onSuccess { list ->
 
-                if (list.isEmpty()) binding.textViewHomeFragmentNoTransactionAlert.visibility = View.VISIBLE
+                if (list.isEmpty()) {
+                    binding.textViewHomeFragmentNoTransactionAlert.visibility = View.VISIBLE
+                    binding.progressBarHomeFragmentTransactions.visibility = View.GONE
+                }
                 else binding.textViewHomeFragmentNoTransactionAlert.visibility = View.GONE
 
                 var newList : List<Transaction>
@@ -72,9 +77,10 @@ import com.emirpetek.wallet_app_android.util.ManageBottomBarVisibility
                 if (list.isNotEmpty()) newList = list.subList(0,minSize)
                 else newList = list
 
+
                 binding.recyclerviewHomeTransactionSum.setHasFixedSize(true)
                 binding.recyclerviewHomeTransactionSum.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-                transactionAdapter = HomeFragmentTransactionSumAdapter(requireContext(),newList,viewModel,viewLifecycleOwner)
+                transactionAdapter = HomeFragmentTransactionSumAdapter(requireContext(),newList,viewModel,viewLifecycleOwner,binding.progressBarHomeFragmentTransactions)
                 binding.recyclerviewHomeTransactionSum.adapter = transactionAdapter
 
             }

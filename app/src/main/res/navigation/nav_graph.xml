@@ -17,6 +17,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_allTransactionsFragment"
+            app:destination="@id/allTransactionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -60,4 +63,9 @@
             android:id="@+id/action_moneyTransferFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/allTransactionsFragment"
+        android:name="com.emirpetek.wallet_app_android.ui.fragment.allTransactions.AllTransactionsFragment"
+        android:label="fragment_all_transactions"
+        tools:layout="@layout/fragment_all_transactions" />
 </navigation>

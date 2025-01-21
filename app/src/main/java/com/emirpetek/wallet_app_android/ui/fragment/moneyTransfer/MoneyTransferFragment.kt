@@ -77,6 +77,7 @@ class MoneyTransferFragment : Fragment() {
 
             if (!isAmountValid(amount)) return@setOnClickListener
 
+            binding.progressBarTransferMoney.visibility = View.VISIBLE
             initiateMoneyTransfer(userID,receiverIbanNumber, amount, description)
         }
 
@@ -89,7 +90,7 @@ class MoneyTransferFragment : Fragment() {
         return binding.root
     }
 
-    public fun showToast(message:String){ Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()}
+    private fun showToast(message:String){ Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()}
 
     private fun isCardSelected(): Boolean {
         return if (selectedCardItem == null) {
@@ -131,14 +132,20 @@ class MoneyTransferFragment : Fragment() {
     private fun observeTransferResult() {
         viewModel.transferResult.observe(viewLifecycleOwner) { response ->
             response.onSuccess { handleTransferSuccess(it) }
-            response.onFailure { showToast(getString(R.string.transfer_failure_onfailure_state)) }
+            response.onFailure {
+                binding.progressBarTransferMoney.visibility = View.GONE
+                showToast(getString(R.string.transfer_failure_onfailure_state))
+            }
             viewModel.transferResult.removeObservers(viewLifecycleOwner)
         }
     }
 
     private fun handleTransferSuccess(result: MoneyTransferReturnStatements) {
 
-        if (result == MoneyTransferReturnStatements.SUCCESSFUL_TRANSFER) showCustomAlertDialog()
+        if (result == MoneyTransferReturnStatements.SUCCESSFUL_TRANSFER){
+            binding.progressBarTransferMoney.visibility = View.GONE
+            showCustomAlertDialog()
+        }
         else{
             val message = when (result) {
                 MoneyTransferReturnStatements.FAILURE_AMOUNT_LOWER_THAN_ZERO -> getString(R.string.transfer_failure_amount_lower_than_zero)

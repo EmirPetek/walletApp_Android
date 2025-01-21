@@ -14,5 +14,6 @@ data class Transaction(
     val currency: CurrencyType, // Para birimi (enum)
     val transactionDate: Long, // İşlem tarihi (timestamp)
     val description: String? = null, // İşlem açıklaması (opsiyonel)
-    val transferReceiverUserId: Long? = null
+    val transferReceiverUserId: Long? = null,
+    val transactionCardId: Long
 )

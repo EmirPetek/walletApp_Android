@@ -1,11 +1,11 @@
 package com.emirpetek.wallet_app_android.ui.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +15,9 @@ import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.model.enum.CardType
 
 class HomeFragmentCardAdapter(
-    val mContext:Context,
-    val cardList: List<CardDTO>
+    val mContext: Context,
+    val cardList: List<CardDTO>,
+    val progressBarHomeFragmentCards: ProgressBar
 ): RecyclerView.Adapter<HomeFragmentCardAdapter.CardHolder>() {
 
     inner class CardHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -96,6 +97,7 @@ class HomeFragmentCardAdapter(
         holder.textViewCardIbanNumber.setText(mContext.getString(R.string.iban) + ": " + cardInfo.accountID)
 
 
+        if (position == itemCount - 1 || cardList.isEmpty()) progressBarHomeFragmentCards.visibility = View.GONE
 
     }
 

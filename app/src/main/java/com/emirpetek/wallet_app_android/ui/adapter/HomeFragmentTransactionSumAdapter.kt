@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.wallet_app_android.R
@@ -17,13 +17,13 @@ import com.emirpetek.wallet_app_android.data.model.Transaction
 import com.emirpetek.wallet_app_android.data.model.enum.TransactionDirection
 import com.emirpetek.wallet_app_android.data.model.enum.TransactionType
 import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
-import kotlinx.coroutines.runBlocking
 
 class HomeFragmentTransactionSumAdapter(
     private val mContext: Context,
     private val transactionList: List<Transaction>,
     private val viewModel: HomeViewModel,
-    val viewLifecycleOwner: LifecycleOwner
+    val viewLifecycleOwner: LifecycleOwner,
+    val progressBarHomeFragmentTransactions: ProgressBar
 ): RecyclerView.Adapter<HomeFragmentTransactionSumAdapter.CardTransaction>() {
 
 
@@ -47,11 +47,11 @@ class HomeFragmentTransactionSumAdapter(
 
         holder.textViewCardTransactionSumType.text = mContext.getString(transaction.transactionType.stringResId)
 
-        if (transaction.transactionDirection.equals(TransactionDirection.POSITIVE)){
+        if (transaction.transactionDirection.equals(TransactionDirection.NEGATIVE)){
             holder.textViewCardTransactionSumAmount.text = "- ${transaction.amount} ${transaction.currency}"
             holder.textViewCardTransactionSumAmount.setTextColor(Color.RED)
         }else{
-            holder.textViewCardTransactionSumAmount.text = "${transaction.amount} ${transaction.currency}"
+            holder.textViewCardTransactionSumAmount.text = "+ ${transaction.amount} ${transaction.currency}"
             holder.textViewCardTransactionSumAmount.setTextColor(Color.GREEN)
         }
 
@@ -82,6 +82,9 @@ class HomeFragmentTransactionSumAdapter(
                         Log.e("onFailure: ", "Hata: $exception") }
                 }
         }
+
+
+        if (position == itemCount - 1 || transactionList.isEmpty()) progressBarHomeFragmentTransactions.visibility = View.GONE
 
 
 

@@ -6,7 +6,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitClient {
 
-    private const val BASE_URL = " https://c204-78-190-158-35.ngrok-free.app/v1/"
+    private const val BASE_URL = " https://d4d2-78-190-158-35.ngrok-free.app/v1/"
 
     val instance: ApiService by lazy {
         Retrofit.Builder()
