@@ -67,16 +67,26 @@ import java.math.BigDecimal
             result.onSuccess { list ->
 
 
-                binding.cardPayBills.setOnClickListener { paymentBillOperation(userID) }
-                binding.cardRandomPayment.setOnClickListener { randomPaymentOperation(userID) }
+                binding.cardPayBills.setOnClickListener {
+                    if (list.isEmpty()) Toast.makeText(requireContext(),getString(R.string.there_is_no_card_pay_bill),Toast.LENGTH_SHORT).show()
+                    else paymentBillOperation(userID) }
+                binding.cardRandomPayment.setOnClickListener {
+                    if (list.isEmpty()) Toast.makeText(requireContext(),getString(R.string.there_is_no_card_random_payment),Toast.LENGTH_SHORT).show()
+                    else randomPaymentOperation(userID) }
 
 
-                if (list.size == 0) binding.textViewFragmentHomeNoCardAlert.visibility = View.VISIBLE
+                if (list.size == 0) {
+                    binding.textViewFragmentHomeNoCardAlert.visibility = View.VISIBLE
+                    binding.progressBarHomeFragmentCards.visibility = View.GONE
+                }
                 else binding.textViewFragmentHomeNoCardAlert.visibility = View.GONE
                 var sizeText = ""
                 if (list.size <=1) sizeText = "Card"
                 else sizeText = "Cards"
                 binding.textViewHomeMyCardsTitle.setText(getString(R.string.my_cards) + " (${list.size} $sizeText)")
+
+
+
 
 
                 binding.recyclerviewHomeCards.setHasFixedSize(true)
@@ -94,8 +104,15 @@ import java.math.BigDecimal
                     val itemAdded = QuickShortcutsModel(cardNumber,id,item.balance)
                     cardNumberList.add(itemAdded)
                 }
-                binding.cardLoadBalance.setOnClickListener { showCustomBottomSheetDialog(requireContext(),cardNumberList,userID,1) }
-                binding.cardWithdrawMoney.setOnClickListener { showCustomBottomSheetDialog(requireContext(),cardNumberList,userID,2) }
+                binding.cardLoadBalance.setOnClickListener {
+                    if (list.isEmpty()) Toast.makeText(requireContext(),getString(R.string.there_is_no_card_load_balance),Toast.LENGTH_SHORT).show()
+                    else showCustomBottomSheetDialog(requireContext(),cardNumberList,userID,1) }
+
+
+                binding.cardWithdrawMoney.setOnClickListener {
+                    if (list.isEmpty()) Toast.makeText(requireContext(),getString(R.string.there_is_no_card_withdraw),Toast.LENGTH_SHORT).show()
+                    else showCustomBottomSheetDialog(requireContext(),cardNumberList,userID,2) }
+
 
             }
         })
@@ -109,14 +126,15 @@ import java.math.BigDecimal
                     binding.textViewHomeFragmentNoTransactionAlert.visibility = View.VISIBLE
                     binding.progressBarHomeFragmentTransactions.visibility = View.GONE
                 }
-                else binding.textViewHomeFragmentNoTransactionAlert.visibility = View.GONE
+                else {
+                    binding.textViewHomeFragmentNoTransactionAlert.visibility = View.GONE
+                }
 
                 var newList : List<Transaction>
                 val minSize = minOf(10,list.size)
                 if (list.isNotEmpty()) newList = list.subList(0,minSize)
                 else newList = list
 
-                if (newList.isNotEmpty()) binding.progressBarHomeFragmentTransactions.visibility = View.GONE
 
                 binding.recyclerviewHomeTransactionSum.setHasFixedSize(true)
                 binding.recyclerviewHomeTransactionSum.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
@@ -200,7 +218,7 @@ import java.math.BigDecimal
 
             // Load butonuna tıklama
             submitButton.setOnClickListener {
-                val selectedCard = spinner.selectedItem?.toString() ?: ""
+                val selectedCard = spinner.selectedItem?.toString() ?: "1234"
 
 
                 val cardID = cardNumbers.find { it.cardNumber == selectedCard }!!.id

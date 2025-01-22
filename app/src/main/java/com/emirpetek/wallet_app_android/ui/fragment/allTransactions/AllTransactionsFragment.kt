@@ -47,7 +47,10 @@ class AllTransactionsFragment : Fragment() {
         viewModel.cardsResult.observe(viewLifecycleOwner, Observer { result ->
             result.onSuccess { list ->
 
-                if (list.isEmpty()) binding.textViewAllTransactionsNoCardHere.visibility = View.VISIBLE
+                if (list.isEmpty()) {
+                    binding.progressBarAllTransactionsCards.visibility = View.GONE
+                    binding.textViewAllTransactionsNoCardHere.visibility = View.VISIBLE
+                }
 
                 binding.recyclerviewAllTransactionsCards.setHasFixedSize(true)
                 binding.recyclerviewAllTransactionsCards.layoutManager = LinearLayoutManager(requireContext(),
@@ -89,11 +92,12 @@ class AllTransactionsFragment : Fragment() {
                 }
 
                 if (filteredList.isEmpty()) {
-                    binding.progressBarAllTransactionsTransactions.visibility = View.GONE
                     binding.textViewAllTransactionsNoTransactionsHere.visibility = View.VISIBLE
                 }else{
                     binding.textViewAllTransactionsNoTransactionsHere.visibility = View.GONE
                 }
+
+                binding.progressBarAllTransactionsTransactions.visibility = View.GONE
 
                 binding.recyclerViewAllTransactions.setHasFixedSize(true)
                 binding.recyclerViewAllTransactions.layoutManager = LinearLayoutManager(requireContext(),

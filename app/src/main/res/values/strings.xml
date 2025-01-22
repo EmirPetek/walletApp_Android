@@ -59,6 +59,11 @@
     <string name="card_created_failure">There is an error in creating card!</string>
     <string name="there_is_no_card">There is no card here. \n You can create your card from Add Card button.</string>
     <string name="there_is_no_card_money_transfer">You do not have any card. \n You should create a card to transfer money.</string>
+    <string name="there_is_no_card_withdraw">You do not have any card. You should create a card to withdraw money.</string>
+    <string name="there_is_no_card_pay_bill">You do not have any card. You should create a card to pay bill.</string>
+    <string name="there_is_no_card_load_balance">You do not have any card. You should create a card to load balance.</string>
+    <string name="there_is_no_card_random_payment">You do not have any card. You should create a card to random payment.</string>
+
     <string name="there_is_no_transaction">There is no transaction.</string>
 
     <string name="transactions_title">Transactions</string>
