@@ -89,6 +89,22 @@ class CardRepository(private val apiService: ApiService) {
     }
 
 
+    suspend fun getNumberOfCards(userID: Long): Result<Int>{
+        return try {
+            val response = apiService.getNumberOfCards(userID)
+            if (response.isSuccessful){
+                val result = response.body()
+                if (result != null) Result.success(result)
+                else Result.failure(Exception("Response body is null"))
+            }else{
+                Result.failure(Exception(response.message()))
+            }
+        }catch (e: Exception){
+            Result.failure(e)
+        }
+    }
+
+
 
 
 }

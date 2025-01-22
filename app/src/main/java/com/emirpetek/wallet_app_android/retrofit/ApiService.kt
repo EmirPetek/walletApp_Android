@@ -55,6 +55,11 @@ interface ApiService {
     @GET("transaction/randomPayment/{userID}")
     suspend fun randomPayment(@Path("userID") userID: Long): Response<Boolean>
 
+    @GET("transaction/getNumberOfTransactions/{userID}")
+    suspend fun getNumberOfTransactions(@Path("userID") userID: Long): Response<Int>
+
+    @GET("card/getNumberOfCards/{userID}")
+    suspend fun getNumberOfCards(@Path("userID") userID: Long): Response<Int>
 
 
 }
