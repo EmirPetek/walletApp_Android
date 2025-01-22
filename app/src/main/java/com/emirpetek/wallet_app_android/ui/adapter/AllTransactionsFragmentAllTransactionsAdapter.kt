@@ -52,6 +52,7 @@ class AllTransactionsFragmentAllTransactionsAdapter(
 
         when(transaction.transactionType){
             TransactionType.TRANSFER -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeAll,R.drawable.money_transfer)
                 viewModel.getUserFullname(transaction.transferReceiverUserId!!)
                 viewModel.fullname.observe(viewLifecycleOwner) { result ->
                     result.onSuccess { fullname ->
@@ -62,6 +63,11 @@ class AllTransactionsFragmentAllTransactionsAdapter(
             }
 
             TransactionType.DEPOSIT -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeAll,R.drawable.load_balance)
+                holder.textViewCardTransactionAllName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
+            }
+            TransactionType.WITHDRAWAL -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeAll,R.drawable.withdrawal)
                 holder.textViewCardTransactionAllName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
             }
             else -> holder.textViewCardTransactionAllName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
@@ -81,18 +87,18 @@ class AllTransactionsFragmentAllTransactionsAdapter(
             holder.textViewCardTransactionAllAmount.setTextColor(Color.GREEN)
         }
 
-        Glide.with(mContext)
-            .load(
-                when(transaction.transactionType){
-                    TransactionType.TRANSFER -> R.drawable.money_transfer
-                    TransactionType.BILL_PAYMENT -> R.drawable.pay_bill
-                    TransactionType.DEPOSIT -> R.drawable.load_balance
-                    TransactionType.WITHDRAWAL -> R.drawable.withdrawal
-                    TransactionType.PAYMENT -> R.drawable.random_payment
-                    else -> R.drawable.money_transfer
-                }
-            )
-            .into(holder.imageViewCardTransactionTypeAll)
+//        Glide.with(mContext)
+//            .load(
+//                when(transaction.transactionType){
+//                    TransactionType.TRANSFER -> R.drawable.money_transfer
+//                    TransactionType.BILL_PAYMENT -> R.drawable.pay_bill
+//                    TransactionType.DEPOSIT -> R.drawable.load_balance
+//                    TransactionType.WITHDRAWAL -> R.drawable.withdrawal
+//                    TransactionType.PAYMENT -> R.drawable.random_payment
+//                    else -> R.drawable.money_transfer
+//                }
+//            )
+//            .into(holder.imageViewCardTransactionTypeAll)
 
         holder.textViewCardTransactionAllDescription.text = mContext.getString(R.string.description_label) + " " + transaction.description
         holder.textViewCardTransactionAllDate.text = TimeDateConversion().formatTimestamp(transaction.transactionDate)
@@ -101,5 +107,8 @@ class AllTransactionsFragmentAllTransactionsAdapter(
 
     }
 
+    fun loadGlide(mContext: Context, imageView: ImageView, file: Int){
+        Glide.with(mContext).load(file).into(imageView)
+    }
 
 }

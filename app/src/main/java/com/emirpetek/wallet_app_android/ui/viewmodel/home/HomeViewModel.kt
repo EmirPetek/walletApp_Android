@@ -8,6 +8,7 @@ import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.model.Transaction
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.data.request.LoadBalanceRequest
+import com.emirpetek.wallet_app_android.data.request.WithdrawMoneyRequest
 import com.emirpetek.wallet_app_android.repository.CardRepository
 import com.emirpetek.wallet_app_android.repository.TransactionRepository
 import com.emirpetek.wallet_app_android.repository.UserRepository
@@ -21,6 +22,7 @@ class HomeViewModel : ViewModel() {
     private val transactionRepository = TransactionRepository(RetrofitClient.instance)
     val cardsResult = MutableLiveData<Result<List<CardDTO>>>()
     val loadBalanceResult = MutableLiveData<Result<Boolean>>()
+    val withdrawMoneyResult = MutableLiveData<Result<Boolean>>()
     val transactions = MutableLiveData<Result<List<Transaction>>>()
     val fullname = MutableLiveData<Result<String>>()
 
@@ -55,6 +57,13 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             val result = cardRepository.loadBalance(loadBalanceRequest)
             loadBalanceResult.value = result
+        }
+    }
+
+    fun withdrawMoney(withdrawMoneyRequest: WithdrawMoneyRequest){
+        viewModelScope.launch {
+            val result = cardRepository.withdrawMoney(withdrawMoneyRequest)
+            withdrawMoneyResult.value = result
         }
     }
 

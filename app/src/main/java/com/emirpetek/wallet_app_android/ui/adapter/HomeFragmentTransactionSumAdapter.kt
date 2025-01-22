@@ -72,7 +72,10 @@ class HomeFragmentTransactionSumAdapter(
                 loadGlide(mContext,holder.imageViewCardTransactionTypeSum,R.drawable.load_balance)
                 holder.textViewCardTransactionSumName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
             }
-            TransactionType.WITHDRAWAL -> R.drawable.withdrawal
+            TransactionType.WITHDRAWAL -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeSum,R.drawable.withdrawal)
+                holder.textViewCardTransactionSumName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
+            }
             TransactionType.PAYMENT -> R.drawable.random_payment
             else -> {
                 loadGlide(mContext,holder.imageViewCardTransactionTypeSum,R.drawable.money_transfer)

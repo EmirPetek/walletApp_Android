@@ -65,6 +65,7 @@
     <string name="all_transactions_title"> All Transactions</string>
     <string name="quick_shortcuts">Quick Shortcuts</string>
     <string name="withdraw_money_qs">Withdraw \n Money</string>
+    <string name="withdraw_money">Withdraw Money</string>
     <string name="load_balance_qs">Load \n Balance</string>
     <string name="pay_bills_qs">Pay \n Bills</string>
     <string name="random_payment_qs">Random \n Payment</string>
@@ -97,6 +98,10 @@
     <string name="load_balance">Load Balance</string>
     <string name="load_balance_process_success">The balance is loading successfully.</string>
     <string name="load_balance_process_failure">The balance could not load. Try again.</string>
+
+    <string name="withdraw_money_success">Your withdraw money operation completed successfully.</string>
+    <string name="withdraw_money_failure">The withdraw money could not complete. Try again.</string>
+    <string name="withdraw_money_failure_balance_lower_than_amount">The amount can not be lower than your card balance.</string>
 
 
 

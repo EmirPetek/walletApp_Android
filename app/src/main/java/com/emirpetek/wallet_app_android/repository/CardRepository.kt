@@ -5,6 +5,7 @@ import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.request.CreateCardRequest
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.data.request.LoadBalanceRequest
+import com.emirpetek.wallet_app_android.data.request.WithdrawMoneyRequest
 import com.emirpetek.wallet_app_android.retrofit.ApiService
 
 class CardRepository(private val apiService: ApiService) {
@@ -49,6 +50,27 @@ class CardRepository(private val apiService: ApiService) {
 
         return try {
             val response = apiService.loadBalance(loadBalanceRequest)
+            if (response.isSuccessful) {
+                val result = response.body() // Backend'den gelen true/false değeri
+                Log.e("repo body:", result.toString())
+                if (result != null) {
+                    Result.success(result)
+                } else {
+                    Result.failure(Exception("Response body is null"))
+                }
+            }else{
+                Result.failure(Exception(response.message()))
+            }
+        }catch (e: Exception){
+            Result.failure(e)
+        }
+
+    }
+
+    suspend fun withdrawMoney(withdrawMoneyRequest: WithdrawMoneyRequest): Result<Boolean>{
+
+        return try {
+            val response = apiService.withdrawMoney(withdrawMoneyRequest)
             if (response.isSuccessful) {
                 val result = response.body() // Backend'den gelen true/false değeri
                 Log.e("repo body:", result.toString())

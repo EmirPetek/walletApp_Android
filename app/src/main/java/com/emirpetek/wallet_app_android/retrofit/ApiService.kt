@@ -10,6 +10,7 @@ import com.emirpetek.wallet_app_android.data.request.LoadBalanceRequest
 import com.emirpetek.wallet_app_android.data.request.LoginRequest
 import com.emirpetek.wallet_app_android.data.request.RegisterRequest
 import com.emirpetek.wallet_app_android.data.request.MoneyTransferRequest
+import com.emirpetek.wallet_app_android.data.request.WithdrawMoneyRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -44,6 +45,9 @@ interface ApiService {
 
     @POST("card/loadBalance")
     suspend fun loadBalance(@Body loadBalanceRequest: LoadBalanceRequest): Response<Boolean>
+
+    @POST("card/withdrawMoney")
+    suspend fun withdrawMoney(@Body withdrawMoneyRequest: WithdrawMoneyRequest): Response<Boolean>
 
 
 }

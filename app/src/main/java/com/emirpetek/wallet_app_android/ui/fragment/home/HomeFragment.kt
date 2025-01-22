@@ -21,6 +21,7 @@ import com.emirpetek.wallet_app_android.R
 import com.emirpetek.wallet_app_android.data.model.Transaction
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.data.request.LoadBalanceRequest
+import com.emirpetek.wallet_app_android.data.request.WithdrawMoneyRequest
 import com.emirpetek.wallet_app_android.databinding.FragmentHomeBinding
 import com.emirpetek.wallet_app_android.ui.adapter.HomeFragmentCardAdapter
 import com.emirpetek.wallet_app_android.ui.adapter.HomeFragmentTransactionSumAdapter
@@ -37,6 +38,8 @@ import java.math.BigDecimal
     private lateinit var adapter : HomeFragmentCardAdapter
     private lateinit var transactionAdapter : HomeFragmentTransactionSumAdapter
 
+
+    data class QuickShortcutsModel(val cardNumber: String, val id: Long, val balance: BigDecimal)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,22 +74,19 @@ import java.math.BigDecimal
                 adapter = HomeFragmentCardAdapter(requireContext(),list,binding.progressBarHomeFragmentCards)
                 binding.recyclerviewHomeCards.adapter = adapter
 
-                val cardNumberList: ArrayList<Pair<String,Long>> = arrayListOf()
+                val cardNumberList: ArrayList<QuickShortcutsModel> = arrayListOf()
                 for (item in list){
                     val cardNumberFirst4 = item.cardNumber.substring(0,4)
                     val cardNumberFourth4 = item.cardNumber.substring(12,16)
 
                     val cardNumber = "$cardNumberFirst4 **** **** $cardNumberFourth4"
                     val id = item.id
-                    val itemAdded = Pair(cardNumber,id)
+                    val itemAdded = QuickShortcutsModel(cardNumber,id,item.balance)
                     Log.e("itemAdded: ", itemAdded.toString())
                     cardNumberList.add(itemAdded)
                 }
-                Log.e("cardNumbersBefore: ", cardNumberList.toString())
-                binding.cardLoadBalance.setOnClickListener {
-                    Log.e("cardNumbersBefore2: ", cardNumberList.toString())
-                    showCustomBottomSheetDialog(requireContext(),cardNumberList,userID)
-                }
+                binding.cardLoadBalance.setOnClickListener { showCustomBottomSheetDialog(requireContext(),cardNumberList,userID,1) }
+                binding.cardWithdrawMoney.setOnClickListener { showCustomBottomSheetDialog(requireContext(),cardNumberList,userID,2) }
 
             }
         })
@@ -123,7 +123,9 @@ import java.math.BigDecimal
         return binding.root
     }
 
-        fun showCustomBottomSheetDialog(mContext: Context, cardNumbers: ArrayList<Pair<String,Long>>,userID:Long) {
+        fun showCustomBottomSheetDialog(
+            mContext: Context, cardNumbers: ArrayList<QuickShortcutsModel>,
+            userID:Long, selectedMenuType: Int) {
 
             Log.e("cardnumbers", cardNumbers.toString())
 
@@ -137,8 +139,10 @@ import java.math.BigDecimal
             val spinner = view.findViewById<Spinner>(R.id.spinnerBSDLoadBalanceCards)
             val submitButton = view.findViewById<Button>(R.id.buttonBSDLoadBalance)
 
+            val cardNumberList = cardNumbers.map { it.cardNumber }
+
             // Spinner'ı kart numaralarıyla doldur
-            val adapter = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, cardNumbers.map { it.first })
+            val adapter = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, cardNumberList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
 
@@ -147,12 +151,18 @@ import java.math.BigDecimal
                 bottomSheetDialog.dismiss()
             }
 
+            when(selectedMenuType) {
+                1 -> submitButton.setText(getString(R.string.load_balance))
+                2 -> submitButton.setText(getString(R.string.withdraw_money))
+            }
+
             // Load butonuna tıklama
             submitButton.setOnClickListener {
                 val selectedCard = spinner.selectedItem?.toString() ?: ""
 
 
-                val cardID = cardNumbers.find { it.first == selectedCard }?.second!!
+                val cardID = cardNumbers.find { it.cardNumber == selectedCard }!!.id
+                val cardBalance = cardNumbers.find { it.cardNumber == selectedCard }!!.balance
 
 
                 val balanceText = editTextAmount.text.trim().toString()
@@ -161,24 +171,68 @@ import java.math.BigDecimal
                 if (selectedCard.isNotEmpty() && balanceText.isNotEmpty()) {
                     Log.e("bsd tıklanması: ", "$selectedCard ve ${BigDecimal(balanceText.toDouble())} cardID: $cardID")
                     val balance = BigDecimal(balanceText.toDouble())
-                    val loadBalanceRequest = LoadBalanceRequest(
-                        userID,
-                        balance,
-                        cardID)
 
-                    viewModel.loadBalance(loadBalanceRequest)
-                    viewModel.loadBalanceResult.observe(viewLifecycleOwner, Observer { result ->
-                        result.onSuccess { response ->
-                            if (response) Toast.makeText(requireContext(),getString(R.string.load_balance_process_success),Toast.LENGTH_SHORT).show()
-                            else Toast.makeText(requireContext(),getString(R.string.load_balance_process_failure),Toast.LENGTH_SHORT).show()
+
+                    if (selectedMenuType == 1) {
+                        val loadBalanceRequest = LoadBalanceRequest(
+                            userID,
+                            balance,
+                            cardID)
+                        viewModel.loadBalance(loadBalanceRequest)
+                        viewModel.loadBalanceResult.observe(viewLifecycleOwner, Observer { result ->
+                            result.onSuccess { response ->
+                                if (response) Toast.makeText(requireContext(),getString(R.string.load_balance_process_success),Toast.LENGTH_SHORT).show()
+                                else Toast.makeText(requireContext(),getString(R.string.load_balance_process_failure),Toast.LENGTH_SHORT).show()
+                            }
+
+                            result.onFailure {
+                                Toast.makeText(requireContext(),getString(R.string.load_balance_process_failure),Toast.LENGTH_SHORT).show()
+                            }
+
+                            bottomSheetDialog.dismiss()
+
+                        })
+                    }
+                    if (selectedMenuType == 2){
+
+
+                        if (cardBalance < balance) Toast.makeText(requireContext(),getString(R.string.amount_cannot_be_lower_balance),Toast.LENGTH_SHORT).show()
+                        else {
+                            val withdrawMoneyRequest = WithdrawMoneyRequest(
+                                userID,
+                                balance,
+                                cardID
+                            )
+                            viewModel.withdrawMoney(withdrawMoneyRequest)
+                            viewModel.withdrawMoneyResult.observe(
+                                viewLifecycleOwner,
+                                Observer { result ->
+                                    result.onSuccess { response ->
+                                        if (response) Toast.makeText(
+                                            requireContext(),
+                                            getString(R.string.withdraw_money_success),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        else Toast.makeText(
+                                            requireContext(),
+                                            getString(R.string.withdraw_money_failure),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    result.onFailure {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            getString(R.string.withdraw_money_failure),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    bottomSheetDialog.dismiss()
+
+                                })
                         }
-
-                        result.onFailure{ Toast.makeText(requireContext(),getString(R.string.load_balance_process_failure),Toast.LENGTH_SHORT).show() }
-
-                        bottomSheetDialog.dismiss()
-
-                    })
-
+                    }
                 } else {
                     Toast.makeText(mContext, getString(R.string.fill_all_place), Toast.LENGTH_SHORT).show()
                 }
