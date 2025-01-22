@@ -103,6 +103,10 @@
     <string name="withdraw_money_failure">The withdraw money could not complete. Try again.</string>
     <string name="withdraw_money_failure_balance_lower_than_amount">The amount can not be lower than your card balance.</string>
 
+    <string name="payment_bill_successful">The bill payment completed successfully.</string>
+    <string name="payment_bill_failure">The bill payment could not complete.</string>
+    <string name="payment_bill_failure_server">Failure server. Please try again later.</string>
+
 
 
 

@@ -56,7 +56,9 @@ class AllTransactionsFragmentAllTransactionsAdapter(
                 viewModel.getUserFullname(transaction.transferReceiverUserId!!)
                 viewModel.fullname.observe(viewLifecycleOwner) { result ->
                     result.onSuccess { fullname ->
-                        holder.textViewCardTransactionAllName.text = fullname }
+                        holder.textViewCardTransactionAllName.text = fullname
+                        viewModel.fullname.removeObservers(viewLifecycleOwner)
+                    }
                     result.onFailure { exception ->
                         Log.e("onFailure: ", "Hata: $exception") }
                 }
@@ -70,6 +72,12 @@ class AllTransactionsFragmentAllTransactionsAdapter(
                 loadGlide(mContext,holder.imageViewCardTransactionTypeAll,R.drawable.withdrawal)
                 holder.textViewCardTransactionAllName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
             }
+
+            TransactionType.BILL_PAYMENT -> {
+                loadGlide(mContext,holder.imageViewCardTransactionTypeAll,R.drawable.pay_bill)
+                holder.textViewCardTransactionAllName.text = "${transaction.description} ${transaction.amount} ${transaction.currency}"
+            }
+
             else -> holder.textViewCardTransactionAllName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"
 
         }
@@ -87,18 +95,6 @@ class AllTransactionsFragmentAllTransactionsAdapter(
             holder.textViewCardTransactionAllAmount.setTextColor(Color.GREEN)
         }
 
-//        Glide.with(mContext)
-//            .load(
-//                when(transaction.transactionType){
-//                    TransactionType.TRANSFER -> R.drawable.money_transfer
-//                    TransactionType.BILL_PAYMENT -> R.drawable.pay_bill
-//                    TransactionType.DEPOSIT -> R.drawable.load_balance
-//                    TransactionType.WITHDRAWAL -> R.drawable.withdrawal
-//                    TransactionType.PAYMENT -> R.drawable.random_payment
-//                    else -> R.drawable.money_transfer
-//                }
-//            )
-//            .into(holder.imageViewCardTransactionTypeAll)
 
         holder.textViewCardTransactionAllDescription.text = mContext.getString(R.string.description_label) + " " + transaction.description
         holder.textViewCardTransactionAllDate.text = TimeDateConversion().formatTimestamp(transaction.transactionDate)

@@ -49,5 +49,9 @@ interface ApiService {
     @POST("card/withdrawMoney")
     suspend fun withdrawMoney(@Body withdrawMoneyRequest: WithdrawMoneyRequest): Response<Boolean>
 
+    @GET("transaction/payBill/{userID}")
+    suspend fun payBill(@Path("userID") userID: Long): Response<Boolean>
+
+
 
 }

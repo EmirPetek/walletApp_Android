@@ -1,6 +1,8 @@
     package com.emirpetek.wallet_app_android.ui.fragment.home
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +15,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.emirpetek.wallet_app_android.R
 import com.emirpetek.wallet_app_android.data.model.Transaction
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
@@ -61,6 +66,10 @@ import java.math.BigDecimal
 
             result.onSuccess { list ->
 
+
+                binding.cardPayBills.setOnClickListener { paymentOperation(userID) }
+
+
                 if (list.size == 0) binding.textViewFragmentHomeNoCardAlert.visibility = View.VISIBLE
                 else binding.textViewFragmentHomeNoCardAlert.visibility = View.GONE
                 var sizeText = ""
@@ -82,7 +91,6 @@ import java.math.BigDecimal
                     val cardNumber = "$cardNumberFirst4 **** **** $cardNumberFourth4"
                     val id = item.id
                     val itemAdded = QuickShortcutsModel(cardNumber,id,item.balance)
-                    Log.e("itemAdded: ", itemAdded.toString())
                     cardNumberList.add(itemAdded)
                 }
                 binding.cardLoadBalance.setOnClickListener { showCustomBottomSheetDialog(requireContext(),cardNumberList,userID,1) }
@@ -122,6 +130,24 @@ import java.math.BigDecimal
 
         return binding.root
     }
+
+
+        fun paymentOperation(userID: Long){
+            viewModel.payBill(userID)
+            viewModel.payBillResult.observe(viewLifecycleOwner, Observer { result ->
+                result.onSuccess { response ->
+                    if (response) showPaymentBillDialog(getString(R.string.payment_bill_successful))
+                    else showPaymentBillDialog(getString(R.string.payment_bill_failure))
+                }
+
+                result.onFailure { exception ->
+                    Log.e("paymentExcepiton: ", exception.toString())
+                    showPaymentBillDialog(getString(R.string.transfer_failure_failure_server)) }
+            })
+        }
+
+
+
 
         fun showCustomBottomSheetDialog(
             mContext: Context, cardNumbers: ArrayList<QuickShortcutsModel>,
@@ -241,6 +267,40 @@ import java.math.BigDecimal
 
             // Dialogu göster
             bottomSheetDialog.show()
+        }
+
+        fun showPaymentBillDialog(responseText: String) {
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+
+            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.alert_transfer_successful, null)
+            dialogBuilder.setView(dialogView)
+
+            val dialog = dialogBuilder.create()
+
+            dialog.setCanceledOnTouchOutside(false)
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val dialogTextView = dialogView.findViewById<TextView>(R.id.textViewAlertTransferSuccessfully)
+            val dialogImageView = dialogView.findViewById<ImageView>(R.id.imageViewTransferSuccessful)
+
+            Glide.with(requireContext()).load(R.drawable.pay_bill).into(dialogImageView)
+            dialogTextView.text = responseText
+
+
+
+            dialog.show()
+
+
+            dialogView.findViewById<Button>(R.id.buttonTransferSuccessfulOk)?.apply {
+                setOnClickListener {
+                    dialog.dismiss()
+                    val fragmentId = findNavController().currentDestination?.id
+                    findNavController().popBackStack(fragmentId!!,true)
+                    findNavController().navigate(fragmentId)
+                }
+            }
+
         }
 
     }

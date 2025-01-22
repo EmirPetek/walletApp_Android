@@ -23,6 +23,7 @@ class HomeViewModel : ViewModel() {
     val cardsResult = MutableLiveData<Result<List<CardDTO>>>()
     val loadBalanceResult = MutableLiveData<Result<Boolean>>()
     val withdrawMoneyResult = MutableLiveData<Result<Boolean>>()
+    val payBillResult = MutableLiveData<Result<Boolean>>()
     val transactions = MutableLiveData<Result<List<Transaction>>>()
     val fullname = MutableLiveData<Result<String>>()
 
@@ -49,7 +50,6 @@ class HomeViewModel : ViewModel() {
             val result = transactionRepository.getTransactions(userID)
             transactions.value = result
         }
-
     }
 
 
@@ -66,6 +66,14 @@ class HomeViewModel : ViewModel() {
             withdrawMoneyResult.value = result
         }
     }
+
+    fun payBill(userID: Long){
+        viewModelScope.launch {
+            val result = transactionRepository.payBill(userID)
+            payBillResult.value = result
+        }
+    }
+
 
 
 
