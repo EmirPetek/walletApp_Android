@@ -107,6 +107,19 @@
     <string name="payment_bill_failure">The bill payment could not complete.</string>
     <string name="payment_bill_failure_server">Failure server. Please try again later.</string>
 
+    <string name="random_payment_successful">Your payment has been completed successfully.</string>
+    <string name="random_payment_failure">The payment could not complete.</string>
+    <string name="random_payment_failure_server">Failure server. Please try again later.</string>
+    
+    <string name="change_big">CHANGE</string>
+    <string name="created_at">Created At</string>
+    <string name="number_of_cards">Number of Cards</string>
+    <string name="number_of_transaction">Number of Transactions</string>
+    <string name="user_details">User Details</string>
+    <string name="user_id">User ID</string>
+    <string name="logout">Logout</string>
+
+
 
 
 

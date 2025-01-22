@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.wallet_app_android.R
 import com.emirpetek.wallet_app_android.data.model.Transaction
+import com.emirpetek.wallet_app_android.data.model.enum.PaymentCompany
 import com.emirpetek.wallet_app_android.data.model.enum.TransactionDirection
 import com.emirpetek.wallet_app_android.data.model.enum.TransactionType
 import com.emirpetek.wallet_app_android.ui.viewmodel.allTransactions.AllTransactionsViewModel
@@ -75,6 +76,12 @@ class AllTransactionsFragmentAllTransactionsAdapter(
 
             TransactionType.BILL_PAYMENT -> {
                 loadGlide(mContext,holder.imageViewCardTransactionTypeAll,R.drawable.pay_bill)
+                holder.textViewCardTransactionAllName.text = "${transaction.description} ${transaction.amount} ${transaction.currency}"
+            }
+
+            TransactionType.PAYMENT -> {
+                val icon = PaymentCompany.fromDescription(transaction.description!!)?.iconResId ?: R.drawable.random_payment
+                loadGlide(mContext,holder.imageViewCardTransactionTypeAll,icon)
                 holder.textViewCardTransactionAllName.text = "${transaction.description} ${transaction.amount} ${transaction.currency}"
             }
 

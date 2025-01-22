@@ -24,6 +24,7 @@ class HomeViewModel : ViewModel() {
     val loadBalanceResult = MutableLiveData<Result<Boolean>>()
     val withdrawMoneyResult = MutableLiveData<Result<Boolean>>()
     val payBillResult = MutableLiveData<Result<Boolean>>()
+    val randomPaymentResult = MutableLiveData<Result<Boolean>>()
     val transactions = MutableLiveData<Result<List<Transaction>>>()
     val fullname = MutableLiveData<Result<String>>()
 
@@ -74,6 +75,12 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun randomPayment(userID: Long){
+        viewModelScope.launch {
+            val result = transactionRepository.randomPayment(userID)
+            randomPaymentResult.value = result
+        }
+    }
 
 
 

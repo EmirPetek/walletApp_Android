@@ -2,6 +2,7 @@ package com.emirpetek.wallet_app_android.ui.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emirpetek.wallet_app_android.R
 import com.emirpetek.wallet_app_android.data.model.Transaction
+import com.emirpetek.wallet_app_android.data.model.enum.PaymentCompany
 import com.emirpetek.wallet_app_android.data.model.enum.TransactionDirection
 import com.emirpetek.wallet_app_android.data.model.enum.TransactionType
 import com.emirpetek.wallet_app_android.ui.viewmodel.home.HomeViewModel
@@ -82,8 +84,11 @@ class HomeFragmentTransactionSumAdapter(
                 holder.textViewCardTransactionSumName.text = "${transaction.description} ${transaction.amount} ${transaction.currency}"
             }
 
-
-            TransactionType.PAYMENT -> R.drawable.random_payment
+            TransactionType.PAYMENT -> {
+                val icon = PaymentCompany.fromDescription(transaction.description!!)?.iconResId ?: R.drawable.random_payment
+                loadGlide(mContext,holder.imageViewCardTransactionTypeSum,icon)
+                holder.textViewCardTransactionSumName.text = "${transaction.description} ${transaction.amount} ${transaction.currency}"
+            }
             else -> {
                 loadGlide(mContext,holder.imageViewCardTransactionTypeSum,R.drawable.money_transfer)
                 holder.textViewCardTransactionSumName.text = "${mContext.getString(transaction.transactionType.stringResId)} ${transaction.amount} ${transaction.currency}"

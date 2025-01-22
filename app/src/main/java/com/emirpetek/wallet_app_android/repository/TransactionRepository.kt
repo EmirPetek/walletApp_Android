@@ -56,6 +56,25 @@ class TransactionRepository(private val apiService: ApiService) {
 
     }
 
+    suspend fun randomPayment(userID: Long): Result<Boolean>{
+
+        return try {
+            val response = apiService.randomPayment(userID)
+            if (response.isSuccessful) {
+                val result = response.body() // Backend'den gelen true/false değeri
+                if (result != null) {
+                    Result.success(result)
+                } else {
+                    Result.failure(Exception("Response body is null"))
+                }
+            }else{
+                Result.failure(Exception(response.message()))
+            }
+        }catch (e: Exception){
+            Result.failure(e)
+        }
+
+    }
 
 
 

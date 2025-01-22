@@ -67,7 +67,8 @@ import java.math.BigDecimal
             result.onSuccess { list ->
 
 
-                binding.cardPayBills.setOnClickListener { paymentOperation(userID) }
+                binding.cardPayBills.setOnClickListener { paymentBillOperation(userID) }
+                binding.cardRandomPayment.setOnClickListener { randomPaymentOperation(userID) }
 
 
                 if (list.size == 0) binding.textViewFragmentHomeNoCardAlert.visibility = View.VISIBLE
@@ -115,6 +116,7 @@ import java.math.BigDecimal
                 if (list.isNotEmpty()) newList = list.subList(0,minSize)
                 else newList = list
 
+                if (newList.isNotEmpty()) binding.progressBarHomeFragmentTransactions.visibility = View.GONE
 
                 binding.recyclerviewHomeTransactionSum.setHasFixedSize(true)
                 binding.recyclerviewHomeTransactionSum.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
@@ -132,19 +134,33 @@ import java.math.BigDecimal
     }
 
 
-        fun paymentOperation(userID: Long){
-            viewModel.payBill(userID)
-            viewModel.payBillResult.observe(viewLifecycleOwner, Observer { result ->
-                result.onSuccess { response ->
-                    if (response) showPaymentBillDialog(getString(R.string.payment_bill_successful))
-                    else showPaymentBillDialog(getString(R.string.payment_bill_failure))
-                }
+    fun paymentBillOperation(userID: Long){
+        viewModel.payBill(userID)
+        viewModel.payBillResult.observe(viewLifecycleOwner, Observer { result ->
+            result.onSuccess { response ->
+                if (response) showPaymentBillDialog(getString(R.string.payment_bill_successful))
+                else showPaymentBillDialog(getString(R.string.payment_bill_failure))
+            }
 
-                result.onFailure { exception ->
-                    Log.e("paymentExcepiton: ", exception.toString())
-                    showPaymentBillDialog(getString(R.string.transfer_failure_failure_server)) }
-            })
-        }
+            result.onFailure { exception ->
+                Log.e("paymentExcepiton: ", exception.toString())
+                showPaymentBillDialog(getString(R.string.transfer_failure_failure_server)) }
+        })
+    }
+
+    fun randomPaymentOperation(userID: Long){
+        viewModel.randomPayment(userID)
+        viewModel.randomPaymentResult.observe(viewLifecycleOwner, Observer { result ->
+            result.onSuccess { response ->
+                if (response) showPaymentBillDialog(getString(R.string.random_payment_successful))
+                else showPaymentBillDialog(getString(R.string.random_payment_failure))
+            }
+
+            result.onFailure { exception ->
+                Log.e("paymentExcepiton: ", exception.toString())
+                showPaymentBillDialog(getString(R.string.random_payment_failure_server)) }
+        })
+    }
 
 
 

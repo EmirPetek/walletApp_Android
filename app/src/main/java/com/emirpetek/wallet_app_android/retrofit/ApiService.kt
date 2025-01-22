@@ -52,6 +52,9 @@ interface ApiService {
     @GET("transaction/payBill/{userID}")
     suspend fun payBill(@Path("userID") userID: Long): Response<Boolean>
 
+    @GET("transaction/randomPayment/{userID}")
+    suspend fun randomPayment(@Path("userID") userID: Long): Response<Boolean>
+
 
 
 }
