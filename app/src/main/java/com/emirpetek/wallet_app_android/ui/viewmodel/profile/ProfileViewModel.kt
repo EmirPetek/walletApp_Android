@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
+import com.emirpetek.wallet_app_android.data.model.enum.PasswordResponse
+import com.emirpetek.wallet_app_android.data.request.PasswordChangeRequest
 import com.emirpetek.wallet_app_android.repository.CardRepository
 import com.emirpetek.wallet_app_android.repository.TransactionRepository
 import com.emirpetek.wallet_app_android.repository.UserRepository
@@ -17,6 +19,7 @@ class ProfileViewModel : ViewModel() {
     private val cardRepository = CardRepository(RetrofitClient.instance)
     private val transactionRepository = TransactionRepository(RetrofitClient.instance)
     val user = MutableLiveData<Result<UserDTO>>()
+    val passwordChangeResult = MutableLiveData<Result<PasswordResponse>>()
 
     val numOfCards = MutableLiveData<Result<Int>>()
     val numOfTransactions = MutableLiveData<Result<Int>>()
@@ -43,6 +46,13 @@ class ProfileViewModel : ViewModel() {
     fun getNumOfTransactions(userID: Long){
         viewModelScope.launch {
             numOfTransactions.value = transactionRepository.getNumberOfTransactions(userID)
+        }
+    }
+
+
+    fun changePassword(passwordChangeRequest: PasswordChangeRequest){
+        viewModelScope.launch {
+            passwordChangeResult.value = userRepository.changePassword(passwordChangeRequest)
         }
     }
 

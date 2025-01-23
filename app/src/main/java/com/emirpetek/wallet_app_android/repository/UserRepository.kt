@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
+import com.emirpetek.wallet_app_android.data.model.enum.PasswordResponse
+import com.emirpetek.wallet_app_android.data.request.PasswordChangeRequest
 import com.emirpetek.wallet_app_android.retrofit.ApiService
 import com.google.gson.Gson
 import org.json.JSONObject
@@ -57,6 +59,22 @@ class UserRepository(private val apiService: ApiService) {
             return Result.failure(e)
         }
     }
+
+
+    suspend fun changePassword(passwordChangeRequest: PasswordChangeRequest): Result<PasswordResponse>{
+        return try {
+            val response = apiService.changePassword(passwordChangeRequest).body()
+
+            if (response != null){
+                Result.success(response)
+            }else{
+                Result.failure(Exception("Password could not change"))
+            }
+        }catch (e: Exception){
+            return Result.failure(e)
+        }
+    }
+
 
 
 

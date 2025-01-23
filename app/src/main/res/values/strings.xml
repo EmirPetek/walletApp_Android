@@ -23,6 +23,7 @@
     <string name="register_successful">Register successfully completed.</string>
     <string name="register_error">This email is already registered. Please login with this email.</string>
     <string name="register_error2">There is an error in register. Please try again later.</string>
+    <string name="user_not_found">User not found.</string>
     
     <string name="card_holder_title">Card Holder</string>
     <string name="expires_title">Expires</string>
@@ -126,6 +127,14 @@
     <string name="transactions">Transactions</string>
     <string name="cards">Cards</string>
 
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="new_password_confirm">Confirm Password</string>
+    <string name="change_password">Change Password</string>
+
+    <string name="password_doesnt_match">New password and confirm password does not match.</string>
+    <string name="old_password_incorrect">Old password is incorrect.</string>
+    <string name="password_change_success">Password changed successfully.</string>
 
 
 

@@ -4,12 +4,14 @@ import com.emirpetek.wallet_app_android.data.dto.CardDTO
 import com.emirpetek.wallet_app_android.data.dto.UserDTO
 import com.emirpetek.wallet_app_android.data.model.Transaction
 import com.emirpetek.wallet_app_android.data.model.enum.MoneyTransferReturnStatements
+import com.emirpetek.wallet_app_android.data.model.enum.PasswordResponse
 import com.emirpetek.wallet_app_android.data.request.CreateCardRequest
 import com.emirpetek.wallet_app_android.data.request.GetCardRequest
 import com.emirpetek.wallet_app_android.data.request.LoadBalanceRequest
 import com.emirpetek.wallet_app_android.data.request.LoginRequest
 import com.emirpetek.wallet_app_android.data.request.RegisterRequest
 import com.emirpetek.wallet_app_android.data.request.MoneyTransferRequest
+import com.emirpetek.wallet_app_android.data.request.PasswordChangeRequest
 import com.emirpetek.wallet_app_android.data.request.WithdrawMoneyRequest
 import retrofit2.Response
 import retrofit2.http.Body
@@ -60,6 +62,10 @@ interface ApiService {
 
     @GET("card/getNumberOfCards/{userID}")
     suspend fun getNumberOfCards(@Path("userID") userID: Long): Response<Int>
+
+
+    @POST("user/changePassword")
+    suspend fun changePassword(@Body passwordChangeRequest: PasswordChangeRequest): Response<PasswordResponse>
 
 
 }

@@ -141,6 +141,8 @@ import java.math.BigDecimal
                 transactionAdapter = HomeFragmentTransactionSumAdapter(requireContext(),newList,viewModel,viewLifecycleOwner,binding.progressBarHomeFragmentTransactions)
                 binding.recyclerviewHomeTransactionSum.adapter = transactionAdapter
 
+                binding.progressBarHomeFragmentTransactions.visibility = View.GONE
+
             }
         })
 
@@ -156,13 +158,13 @@ import java.math.BigDecimal
         viewModel.payBill(userID)
         viewModel.payBillResult.observe(viewLifecycleOwner, Observer { result ->
             result.onSuccess { response ->
-                if (response) showPaymentBillDialog(getString(R.string.payment_bill_successful))
-                else showPaymentBillDialog(getString(R.string.payment_bill_failure))
+                if (response) showPaymentBillDialog(getString(R.string.payment_bill_successful),R.drawable.pay_bill)
+                else showPaymentBillDialog(getString(R.string.payment_bill_failure),R.drawable.pay_bill)
             }
 
             result.onFailure { exception ->
                 Log.e("paymentExcepiton: ", exception.toString())
-                showPaymentBillDialog(getString(R.string.transfer_failure_failure_server)) }
+                showPaymentBillDialog(getString(R.string.transfer_failure_failure_server),R.drawable.pay_bill) }
         })
     }
 
@@ -170,13 +172,13 @@ import java.math.BigDecimal
         viewModel.randomPayment(userID)
         viewModel.randomPaymentResult.observe(viewLifecycleOwner, Observer { result ->
             result.onSuccess { response ->
-                if (response) showPaymentBillDialog(getString(R.string.random_payment_successful))
-                else showPaymentBillDialog(getString(R.string.random_payment_failure))
+                if (response) showPaymentBillDialog(getString(R.string.random_payment_successful),R.drawable.random_payment)
+                else showPaymentBillDialog(getString(R.string.random_payment_failure),R.drawable.random_payment)
             }
 
             result.onFailure { exception ->
                 Log.e("paymentExcepiton: ", exception.toString())
-                showPaymentBillDialog(getString(R.string.random_payment_failure_server)) }
+                showPaymentBillDialog(getString(R.string.random_payment_failure_server),R.drawable.random_payment) }
         })
     }
 
@@ -303,7 +305,7 @@ import java.math.BigDecimal
             bottomSheetDialog.show()
         }
 
-        fun showPaymentBillDialog(responseText: String) {
+        fun showPaymentBillDialog(responseText: String, randomPayment: Int) {
             val dialogBuilder = AlertDialog.Builder(requireContext())
 
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.alert_transfer_successful, null)
@@ -318,7 +320,7 @@ import java.math.BigDecimal
             val dialogTextView = dialogView.findViewById<TextView>(R.id.textViewAlertTransferSuccessfully)
             val dialogImageView = dialogView.findViewById<ImageView>(R.id.imageViewTransferSuccessful)
 
-            Glide.with(requireContext()).load(R.drawable.pay_bill).into(dialogImageView)
+            Glide.with(requireContext()).load(randomPayment).into(dialogImageView)
             dialogTextView.text = responseText
 
 
