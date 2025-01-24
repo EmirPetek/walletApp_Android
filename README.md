@@ -45,28 +45,7 @@ This application communicates with a backend system using the following endpoint
   - `GET /transaction/getTransactions/{userID}`: Fetch transaction history.
 
 ## Screenshots
-Below are some screenshots of the application:
-
-1. **Login Screen**
-   ![Login Screen](1.png)
-
-2. **Registration Screen**
-   ![Registration Screen](2.png)
-
-3. **Add Card Screen**
-   ![Add Card Screen](3.png)
-
-4. **My Cards Screen**
-   ![My Cards Screen](4.png)
-
-5. **Transaction History Screen**
-   ![Transaction History Screen](5.png)
-
-6. **Money Transfer Screen**
-   ![Money Transfer Screen](6.png)
-
-7. **Profile Screen**
-   ![Profile Screen](7.png)
+Below at the end of the readme are some screenshots of the application.
 
 ## Setup and Installation
 ### Prerequisites
