@@ -38,6 +38,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordEmailFragment"
+            app:destination="@id/forgotPasswordEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -68,4 +71,31 @@
         android:name="com.emirpetek.wallet_app_android.ui.fragment.allTransactions.AllTransactionsFragment"
         android:label="fragment_all_transactions"
         tools:layout="@layout/fragment_all_transactions" />
+    <fragment
+        android:id="@+id/forgotPasswordEmailFragment"
+        android:name="com.emirpetek.wallet_app_android.ui.fragment.login.ForgotPasswordEmailFragment"
+        android:label="fragment_forgot_password_email"
+        tools:layout="@layout/fragment_forgot_password_email" >
+        <action
+            android:id="@+id/action_forgotPasswordEmailFragment_to_forgotPasswordVerifyCodeFragment"
+            app:destination="@id/forgotPasswordVerifyCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordVerifyCodeFragment"
+        android:name="com.emirpetek.wallet_app_android.ui.fragment.login.ForgotPasswordVerifyCodeFragment"
+        android:label="fragment_forgot_password_verify_code"
+        tools:layout="@layout/fragment_forgot_password_verify_code" >
+        <action
+            android:id="@+id/action_forgotPasswordVerifyCodeFragment_to_forgotPasswordChangePasswordFragment"
+            app:destination="@id/forgotPasswordChangePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordChangePasswordFragment"
+        android:name="com.emirpetek.wallet_app_android.ui.fragment.login.ForgotPasswordChangePasswordFragment"
+        android:label="fragment_forgot_password_change_password"
+        tools:layout="@layout/fragment_forgot_password_change_password" >
+        <action
+            android:id="@+id/action_forgotPasswordChangePasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

@@ -33,6 +33,12 @@ interface ApiService {
     @GET("user/getFullName/{userID}")
     suspend fun getFullNameFromUserID(@Path("userID") userID: Long): Response<String>
 
+    @GET("user/isEmailExist/{email}")
+    suspend fun isEmailExist(@Path("email") email: String) : Response<Boolean>
+
+    @GET("user/getUserIdFromEmail/{email}")
+    suspend fun getUserIdFromEmail(@Path("email") email: String): Response<Long>
+
     @POST("card/getCard")
     suspend fun getUserCards(@Body getCardRequest: GetCardRequest): Response<List<CardDTO>>
 
@@ -62,7 +68,6 @@ interface ApiService {
 
     @GET("card/getNumberOfCards/{userID}")
     suspend fun getNumberOfCards(@Path("userID") userID: Long): Response<Int>
-
 
     @POST("user/changePassword")
     suspend fun changePassword(@Body passwordChangeRequest: PasswordChangeRequest): Response<PasswordResponse>

@@ -9,6 +9,7 @@ import com.emirpetek.wallet_app_android.data.request.PasswordChangeRequest
 import com.emirpetek.wallet_app_android.retrofit.ApiService
 import com.google.gson.Gson
 import org.json.JSONObject
+import retrofit2.Response
 
 class UserRepository(private val apiService: ApiService) {
 
@@ -74,6 +75,45 @@ class UserRepository(private val apiService: ApiService) {
             return Result.failure(e)
         }
     }
+
+    suspend fun isEmailExist(email: String): Result<Boolean> {
+        return try {
+            val response = apiService.isEmailExist(email)
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.success(body)
+                } else {
+                    Result.failure(Exception("Response body is null"))
+                }
+            } else {
+                Log.e("isEmailExistException: ", response.message())
+                Result.failure(Exception("API call failed with error: ${response.errorBody()?.string()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+
+    suspend fun getUserIdFromEmail(email: String): Result<Long> {
+        return try {
+            val response = apiService.getUserIdFromEmail(email)
+            if (response.isSuccessful) {
+                val userId = response.body()
+                if (userId != null) {
+                    Result.success(userId)
+                } else {
+                    Result.failure(Exception("Response body is null"))
+                }
+            } else {
+                Result.failure(Exception("API call failed with error: ${response.errorBody()?.string()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
 
 

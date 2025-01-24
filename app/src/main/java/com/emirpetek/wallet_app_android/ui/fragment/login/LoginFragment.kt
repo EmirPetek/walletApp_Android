@@ -37,6 +37,8 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        binding.textViewLoginForgotPassword.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordEmailFragment) }
+
         binding.editTextLoginEmail.setText("emirpetek2002@gmail.com")
         binding.editTextLoginPassword.setText("emir1234")
 

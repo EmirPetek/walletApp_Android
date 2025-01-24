@@ -24,7 +24,7 @@
     <string name="register_error">This email is already registered. Please login with this email.</string>
     <string name="register_error2">There is an error in register. Please try again later.</string>
     <string name="user_not_found">User not found.</string>
-    
+
     <string name="card_holder_title">Card Holder</string>
     <string name="expires_title">Expires</string>
     <string name="cvv_title">CVV</string>
@@ -83,7 +83,7 @@
     <string name="transaction_type_deposit">Deposit</string> <!-- Cüzdana Para Yükleme -->
     <string name="transaction_type_withdrawal">Withdrawal</string> <!-- Para Çekme -->
     <string name="transaction_type_bill_payment">Bill Payment</string> <!-- Fatura Ödeme -->
-    
+
     <string name="iban_number">IBAN Number</string>
     <string name="amount">Amount</string>
     <string name="description">Description</string>
@@ -116,7 +116,7 @@
     <string name="random_payment_successful">Your payment has been completed successfully.</string>
     <string name="random_payment_failure">The payment could not complete.</string>
     <string name="random_payment_failure_server">Failure server. Please try again later.</string>
-    
+
     <string name="change_big">CHANGE</string>
     <string name="created_at">Created At</string>
     <string name="number_of_cards">Number of Cards</string>
@@ -135,8 +135,10 @@
     <string name="password_doesnt_match">New password and confirm password does not match.</string>
     <string name="old_password_incorrect">Old password is incorrect.</string>
     <string name="password_change_success">Password changed successfully.</string>
-
-
+    <string name="verify_your_code">Verify Your Code</string>
+    <string name="verify_your_code_sent_email">We have sent a code to your email \n</string>
+    <string name="verify">Verify</string>
+    <string name="error">There is an error. Try again later.</string>
 
 
 </resources>
